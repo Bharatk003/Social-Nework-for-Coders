@@ -40,6 +40,11 @@ class User(AbstractUser):
     ], blank=True)
     
     pronouns = models.CharField(max_length=50, blank=True)
+    github_link = models.URLField(max_length=200, blank=True)
+    linkedin_link = models.URLField(max_length=200, blank=True)
+    other_link = models.URLField(max_length=200, blank=True)
+    skills = models.TextField(blank=True, help_text="Comma-separated list of skills")
+    
     
     def __str__(self):
         return self.username

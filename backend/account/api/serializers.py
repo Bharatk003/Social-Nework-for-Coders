@@ -40,6 +40,10 @@ class UserSerializer(serializers.ModelSerializer):
             'bio',
             'gender',
             'pronouns',
+            'github_link',
+            'linkedin_link', 
+            'other_link'
+            'skills',
         ]
         extra_kwargs = {
             'date_joined': {
