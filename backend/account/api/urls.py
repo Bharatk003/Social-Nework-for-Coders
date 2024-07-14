@@ -7,7 +7,10 @@ from .views import (
     SignupAPIView,
     ProfileUpdateAPIView,
     FollowingListAPIView,
-    FollowerListAPIView
+    FollowerListAPIView,
+    FollowRequestListAPIView,
+    AcceptFollowRequestAPIView,
+    DeclineFollowRequestAPIView,
 )
 
 
@@ -21,6 +24,8 @@ urlpatterns = [
     path("<int:id>/followers/", FollowerListAPIView.as_view()),
     path("profile/update/", ProfileUpdateAPIView.as_view()),
     path("follow_unfollow/<int:pk>/", FollowUnfollowUserAPIView.as_view()),
-    path('api/token/blacklist/', TokenBlacklistView.as_view(),
-         name='token_blacklist'),
+    path('api/token/blacklist/', TokenBlacklistView.as_view(), name='token_blacklist'),
+    path('follow-requests/', FollowRequestListAPIView.as_view(), name='follow_request_list'),
+    path('follow-requests/<int:pk>/accept/', AcceptFollowRequestAPIView.as_view(), name='accept_follow_request'),
+    path('follow-requests/<int:pk>/decline/', DeclineFollowRequestAPIView.as_view(), name='decline_follow_request'),
 ]

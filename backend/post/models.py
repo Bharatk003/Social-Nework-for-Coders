@@ -31,15 +31,27 @@ class Reply(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Post(models.Model):
+    
     created = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to=profile_path, default="", null= True , blank=True)
-    video = models.FileField(upload_to=profile_path, default="" , null=True, black=True)
+    image = models.ImageField(upload_to=profile_path, default="", null=True, blank=True)
+    video = models.FileField(upload_to=profile_path, default="", null=True, blank=True)
     creator = models.ForeignKey(User, related_name='posts', on_delete=models.CASCADE)
-    content = models.TextField()
+    content = models.TextField()  # For plain text content
+    markdown_content = models.TextField(blank=True, null=True)  # For markdown content
+    code_snippet = models.TextField(blank=True, null=True)  # For code snippets with syntax highlighting
     likes = models.ManyToManyField(User, related_name='liked_post')
     saves = models.ManyToManyField(User, related_name="saved_post")
     isEdited = models.BooleanField(default=False)
+    tags = models.ManyToManyField(Tag, related_name='posts', blank=True)  # Many-to-Many relationship with Tag model
     objects = PostManager()
     
     def __str__(self):

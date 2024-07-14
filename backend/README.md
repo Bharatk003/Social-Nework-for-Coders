@@ -132,3 +132,37 @@ This dual functionality is enabled by the get_object method which defaults to th
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Implementation Flow ### **private public account**
+Database Changes:
+
+Add a is_private field to the User model to indicate if an account is private or public.
+User Registration/Settings:
+
+Allow users to choose between a public or private account during registration or through their account settings.
+Following System:
+
+Implement a following system where users can request to follow a private account.
+Add a mechanism for users to accept or reject follow requests.
+Content Visibility:
+
+Modify your views and serializers to check if the user is allowed to see the content based on the account's privacy settings.
+Access Control:
+
+Implement logic to restrict access to private content only to approved followers.

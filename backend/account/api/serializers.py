@@ -1,7 +1,7 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from django.contrib.auth import update_session_auth_hash
-from account.models import User
+from account.models import User, FollowRequest
 from django.contrib.humanize.templatetags.humanize import naturalday
 # from typing import Any
 
@@ -33,6 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
             'date_joined',
             'email',
             'profile_pic',
+            'is_private',
             'following',
             'followers',
             'cover_pic',
@@ -42,7 +43,7 @@ class UserSerializer(serializers.ModelSerializer):
             'pronouns',
             'github_link',
             'linkedin_link', 
-            'other_link'
+            'other_link',
             'skills',
         ]
         extra_kwargs = {
@@ -53,6 +54,7 @@ class UserSerializer(serializers.ModelSerializer):
                 "write_only": True,
             }
         }
+        read_only_fields = ('followers', 'following')
 
     def get_followers(self, user):
         return user.followers.count()
@@ -107,3 +109,11 @@ class SignupSerializer(serializers.ModelSerializer):
                 setattr(instance, attr, value)
         instance.save()
         return instance
+
+
+# In accounts/serializers.py
+
+class FollowRequestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FollowRequest
+        fields = ('id', 'from_user', 'to_user', 'created_at')

@@ -29,6 +29,7 @@ class User(AbstractUser):
     
     profile_pic = models.ImageField(upload_to=profile_path, null=True)
     following = models.ManyToManyField('self')
+    is_private = models.BooleanField(default=False)
     cover_pic = models.ImageField(upload_to=cover_image_path, null=True, default="images/cover/coverphoto.jpg")
     followers = models.ManyToManyField('self')
     bio = models.TextField(blank=True)
@@ -51,3 +52,14 @@ class User(AbstractUser):
     
     def media_posts(self):
         return self.posts.exclude(image='')
+    
+    
+# In accounts/models.py
+
+class FollowRequest(models.Model):
+    from_user = models.ForeignKey(User, related_name="sent_follow_requests", on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name="received_follow_requests", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('from_user', 'to_user')
