@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-
+import { useState, useEffect } from "react";
 const navElement = [
     { name: "Home", icon: "ant-design:home-filled", href: "/" },
     { name: "Explore", icon: "material-symbols:explore-outline-rounded", href: "/explore" },
@@ -9,6 +9,8 @@ const navElement = [
     { name: "Profile", icon: "healthicons:ui-user-profile", href: "/profile" },
     { name: "Logout", icon: "oi:account-logout", href: "/logout" },
 ];
+
+
 
 const SideNav = (props) => {
     const { setShowSidebar, open } = props;
@@ -29,9 +31,9 @@ const SideNav = (props) => {
                 }`}
             >
                 <span className="text-4xl xm:2xl">
-                    <iconify-icon icon="game-icons:hummingbird">birdie logo ABI</iconify-icon>
+                    <img className="w-auto h-12 sm:h-15" src= 'logo_rmtag.png' /> 
                 </span>
-                <h1 className="font-bold italic">DevSphere</h1>
+                 
             </header>
             <nav className="flex flex-col py-2 flex-grow overflow-y-scroll overflow-x-hidden">
                 <button
@@ -43,27 +45,23 @@ const SideNav = (props) => {
                     onClick={() => setShowSidebar((p) => !p)}
                     aria-hidden="true"
                 >
-                    <iconify-icon
-                        icon="charm:menu-hamburger"
-                        rotate={open ? "180deg" : ""}
-                        width="30px"
-                    >
-                        Toggle Sidebar
-                    </iconify-icon>
+                     
+                     
                 </button>
                 {navElement.map((el) => {
                     const activeClass =
                         el.name.toLowerCase() === cur
                             ? "text-blue-500 scale-110 hover"
-                            : "text-gray-500 dark:text-gray-300";
+                            : "text-gray-900 dark:text-gray-50";
                     return (
                         <Link
                             key={el.icon + el.name}
                             to={el.href}
                             className={`w-full flex text-left justify-left transition hover:scale-110 pl-[25%] items-center h-14 pt-3 ${activeClass}`}
                         >
-                            <span className="text-[1.7rem] ">
+                            <span className="text-[1.4rem] ">
                                 <iconify-icon icon={el.icon}></iconify-icon>
+                             
                             </span>
                             <span
                                 className={`text-[1.2rem] ${

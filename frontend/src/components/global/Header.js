@@ -22,9 +22,9 @@ const Header = (props) => {
                     aria-hidden={true}
                 >
                     <span className="text-4xl">
-                        <iconify-icon icon="game-icons:hummingbird">DevSphere logo</iconify-icon>
+                        
                     </span>
-                    <h1 className="font-bold italic inline-block capitalize">
+                    <h1 className="font-bold inline-block capitalize">
                         {isError ? "DevSphere" : cur}
                     </h1>
                 </div>
@@ -54,7 +54,7 @@ const Header = (props) => {
                     <Avatar src={user && profile_pic} alt={user && username}>
                         {username && username.at(0).toUpperCase()}
                     </Avatar>
-                    <p className="dark:text-white text-gray-900 text-lg xm:static fixed -top-36 capitalize">
+                    <p className="dark:text-white text-black text-lg xm:static fixed -top-36 capitalize">
                         {user && username}
                     </p>
                 </div>
