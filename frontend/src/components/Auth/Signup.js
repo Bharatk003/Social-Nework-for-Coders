@@ -69,7 +69,7 @@ export default function SignUp() {
                                 id="signup-username"
                             />
                         </div>
-
+                        {passwordError && <p className="text-sm text-red-500">invalid password</p>}
                         <div className="w-full mt-4">
                             <input
                                 type="password"
