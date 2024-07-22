@@ -12,7 +12,7 @@ const defaultProfileData = {
     follower: "",
 };
 
-const pyAnywhere = "https://ogayanfe.pythonanywhere.com/";
+const pyAnywhere = "https://social-nework-for-coders.onrender.com/";
 
 function UserContextProvider({ children }) {
     const userTokensFromStorage = JSON.parse(localStorage.getItem("userTokens"));
