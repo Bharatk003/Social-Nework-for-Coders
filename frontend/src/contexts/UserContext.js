@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
 
@@ -24,20 +24,29 @@ function UserContextProvider({ children }) {
         : pyAnywhere;
     const [profileData, setProfileData] = useState(defaultProfileData);
     const [tokens, setTokens] = useState(userTokensFromStorage);
-    const axiosInstance = axios.create({
-        baseURL: SERVERURL + "api",
-        headers: {
-            Authorization: `Bearer ${tokens && tokens.access}`,
-        },
-    });
 
-    const fetchUserData = async () => {
-        const response = await axiosInstance.get("accounts/info/");
-        setProfileData(response.data);
-    };
+    const axiosInstance = useCallback(() => {
+        return axios.create({
+            baseURL: SERVERURL + "api",
+            headers: {
+                Authorization: `Bearer ${tokens && tokens.access}`,
+            },
+        });
+    }, [SERVERURL, tokens]);
 
-    const login = (data, onfailure) => {
-        axiosInstance
+    const fetchUserData = useCallback(async () => {
+        if (tokens) {
+            try {
+                const response = await axiosInstance().get("accounts/info/");
+                setProfileData(response.data);
+            } catch (error) {
+                console.error("Failed to fetch user data", error);
+            }
+        }
+    }, [axiosInstance, tokens]);
+
+    const login = (data, onFailure) => {
+        axiosInstance()
             .post("/accounts/token/", {
                 username: data.username,
                 password: data.password,
@@ -48,15 +57,16 @@ function UserContextProvider({ children }) {
                     setUser(jwtDecode(data.access));
                     setTokens(data);
                     localStorage.setItem("userTokens", JSON.stringify(data));
+                    fetchUserData();
                 }
             })
             .catch((err) => {
-                onfailure();
+                onFailure();
             });
     };
 
     const signup = (validatedData, onFailure) => {
-        axiosInstance
+        axiosInstance()
             .post("/accounts/signup/", validatedData)
             .then((response) => {
                 if (response.status < 400 && response.status >= 200) {
@@ -64,13 +74,14 @@ function UserContextProvider({ children }) {
                     setUser(jwtDecode(tokens.access));
                     setTokens(tokens);
                     localStorage.setItem("userTokens", JSON.stringify(tokens));
+                    fetchUserData();
                 }
             })
             .catch((error) => onFailure(error));
     };
 
     const updateInfo = async (formData, onSuccess, onFailure) => {
-        axiosInstance
+        axiosInstance()
             .patch("accounts/profile/update/", formData)
             .then((response) => {
                 onSuccess(response);
@@ -87,10 +98,10 @@ function UserContextProvider({ children }) {
         localStorage.clear();
     };
 
-    const authcontext = {
+    const authContext = {
         user: user,
         login: login,
-        axiosInstance: axiosInstance,
+        axiosInstance: axiosInstance(),
         logout: logout,
         updateInfo: updateInfo,
         signup: signup,
@@ -101,9 +112,9 @@ function UserContextProvider({ children }) {
 
     useEffect(() => {
         fetchUserData();
-    }, [tokens]);
+    }, [fetchUserData]);
 
-    return <userContext.Provider value={authcontext}>{children}</userContext.Provider>;
+    return <userContext.Provider value={authContext}>{children}</userContext.Provider>;
 }
 
 const useUserContext = () => {
