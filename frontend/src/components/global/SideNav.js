@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 const navElement = [
     { name: "Home", icon: "ant-design:home-filled", href: "/" },
     { name: "Explore", icon: "material-symbols:explore-outline-rounded", href: "/explore" },
@@ -31,7 +31,7 @@ const SideNav = (props) => {
                 }`}
             >
                 <span className="text-4xl xm:2xl">
-                    <img className="w-auto h-12 sm:h-15" src= 'logo_rmtag.png' /> 
+                    <img className="w-auto h-12 sm:h-15" src= 'logo_rmtag.png' alt=""/> 
                 </span>
                  
             </header>

@@ -29,11 +29,12 @@ const Header = (props) => {
                     </h1>
                 </div>
                 <div className="flex justify-between items-center gap-2 lg:gap-3">
-                    <a
+                    <a 
                         className="dark:text-white text-gray-900 text-3xl hover:text-blue-500"
                         href="https://github.com/Bharatk003/Social-Nework-for-Coders"
                         target="_blank"
                         alt="github"
+                        rel="noreferrer"
                         aria-label="view code on github"
                     >
                         <span className="fixed -left-[10000000000000000px]">

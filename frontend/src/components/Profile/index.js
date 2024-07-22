@@ -37,7 +37,7 @@ const Profile = () => {
     return function () {
       document.title = "Birdie";
     };
-  }, []);
+  }, [username]);
 
   return (
     <div className="w-[599px] max-w-[99%] mt-1 mx-auto">
