@@ -124,7 +124,8 @@ USE_I18N = True
 USE_TZ = True
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "http://localhost:3000", 
+    "https://devsphere-coders.netlify.app/",
 ]
 
 # Static files (CSS, JavaScript, Images)
