@@ -30,7 +30,7 @@ SECRET_KEY =  os.environ.get("SECRET_KEY", "64ccd04bd8e3ba5db8c464d73bf1d0b7")
 # DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 DEBUG = True
-ALLOWED_HOSTS = ["https://social-nework-for-coders.onrender.com/","localhost"]
+ALLOWED_HOSTS = ["social-nework-for-coders.onrender.com","localhost"]
 
 # Application definition
 
