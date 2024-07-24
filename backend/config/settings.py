@@ -22,12 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY =  os.environ.get("SECRET_KEY")
+SECRET_KEY =  os.environ.get("SECRET_KEY", "64ccd04bd8e3ba5db8c464d73bf1d0b7")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = ["social-nework-for-coders.onrender.com","localhost"]
+# enable it while deployment
+# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+
+DEBUG = True
+ALLOWED_HOSTS = ["https://social-nework-for-coders.onrender.com/","localhost"]
 
 # Application definition
 
@@ -90,8 +93,8 @@ DATABASES = {
     }
 }
 
-
-DATABASES['default'] = dj_database_url.parse("postgresql://devsphere_data_storage_user:YpuLMxsYZvXerylluisLfcZiFjoaGPBi@dpg-cqevc98gph6c73b21qcg-a/devsphere_data_storage")
+# for deployment activate the default database
+DATABASES['default'] = dj_database_url.parse("postgresql://devsphere_data_storage_user:YpuLMxsYZvXerylluisLfcZiFjoaGPBi@dpg-cqevc98gph6c73b21qcg-a.oregon-postgres.render.com/devsphere_data_storage")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -123,10 +126,11 @@ USE_I18N = True
 
 USE_TZ = True
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000", 
-    "https://devsphere-coders.netlify.app/",
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:3000", 
+#     "https://devsphere-coders.netlify.app/",
+# ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
