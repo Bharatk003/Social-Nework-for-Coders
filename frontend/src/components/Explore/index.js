@@ -20,9 +20,9 @@ const Explore = () => {
     }, [getPosts, setData]);
 
     useEffect(() => {
-        document.title = "Birdie | Explore";
+        document.title = "DevSphere | Explore";
         return () => {
-            document.title = "Birdie";
+            document.title = "DevSphere";
         };
     }, []);
 

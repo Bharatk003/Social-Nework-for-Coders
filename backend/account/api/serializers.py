@@ -3,11 +3,13 @@ from rest_framework import serializers
 from django.contrib.auth import update_session_auth_hash
 from account.models import User, FollowRequest
 from django.contrib.humanize.templatetags.humanize import naturalday
+from django.contrib.auth import authenticate
 # from typing import Any
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
+     
     def get_token(cls, user):
         token = super().get_token(user)
         token['user_name'] = user.username
@@ -18,7 +20,32 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         return token
 
- 
+    def validate(self, attrs):
+        # Use either username or email for authentication
+        credentials = {
+            'username': attrs.get('username'),
+            'password': attrs.get('password')
+        }
+        
+        # Check if the username is an email address
+        if '@' in credentials['username']:
+            try:
+                user = User.objects.get(email=credentials['username'])
+                credentials['username'] = user.username
+            except User.DoesNotExist:
+                raise serializers.ValidationError('No user found with this email address')
+
+        user = authenticate(**credentials)
+        
+        if user is None:
+            raise serializers.ValidationError('Invalid credentials')
+        
+        refresh = self.get_token(user)
+
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }
 
 class UserSerializer(serializers.ModelSerializer):
     followers = serializers.SerializerMethodField()
@@ -95,6 +122,7 @@ class SignupSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop('password', None)
+
         instance = self.Meta.model(**validated_data)
         if password is not None:
             instance.set_password(password)

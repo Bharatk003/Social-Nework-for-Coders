@@ -49,6 +49,7 @@ function UserContextProvider({ children }) {
         axiosInstance()
             .post("/accounts/token/", {
                 username: data.username,
+                email: data.email,
                 password: data.password,
             })
             .then((response) => {

@@ -3,31 +3,73 @@ import useUserContext from "../../contexts/UserContext";
 import { Navigate, Link } from "react-router-dom";
 
 const validUsernamePattern = /^[\w.@+-]+$/;
+const validPasswordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+; // At least one letter, one number, and 8 characters
 
 function validateUsername(username) {
     if (!username || username.at(-1) === " ") return false;
     return Boolean(username.match(validUsernamePattern));
 }
 
+function validatePassword(password) {
+    return Boolean(password.match(validPasswordPattern));
+}
+
 export default function SignUp() {
     const { user, signup } = useUserContext();
     const [formData, setFormData] = useState({
         username: "",
+        email:"",
+        password: "",
+
+        passwordConfirm: "",
+    });
+    const [errors, setErrors] = useState({
+        username: "",
+        email:"",
         password: "",
         passwordConfirm: "",
     });
-    const [usernameError, setUsernameError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
 
     function handleSubmit(e) {
         e.preventDefault();
-        if (formData.password !== formData.passwordConfirm) setPasswordError(true);
-        else {
-            signup(formData, (error) => {
-                const data = error.response.data;
-                alert(data.username);
-            });
+
+        // Reset errors
+        setErrors({
+            username: "",
+            email:"",
+            password: "",
+            passwordConfirm: "",
+        });
+
+        // Client-side validation
+        let valid = true;
+        let newErrors = {};
+
+        if (!validateUsername(formData.username)) {
+            newErrors.username = "Invalid username. Only letters, numbers, and @/./+/-/_ characters are allowed.";
+            valid = false;
         }
+
+        if (!validatePassword(formData.password)) {
+            newErrors.password = "Invalid password. Must be at least 8 characters long and contain at least one letter and one number.";
+            valid = false;
+        }
+
+        if (formData.password !== formData.passwordConfirm) {
+            newErrors.passwordConfirm = "Passwords do not match.";
+            valid = false;
+        }
+
+        if (!valid) {
+            setErrors(newErrors);
+            return;
+        }
+
+        signup(formData, (error) => {
+            const data = error.response.data;
+            alert(data.username);
+        });
     }
 
     const handleChange = (e) => {
@@ -35,9 +77,12 @@ export default function SignUp() {
             ...prev,
             [e.target.name]: e.target.value,
         }));
-        if (!validateUsername(e.target.value)) {
-            setUsernameError(true);
-        } else setUsernameError(false);
+
+        // Clear errors for the field being updated
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [e.target.name]: "",
+        }));
     };
 
     if (user) return <Navigate to="/" />;
@@ -49,13 +94,12 @@ export default function SignUp() {
                         <img className="w-auto h-22 sm:h-15" src="/white_logo.png" alt="Logo" />
                     </div>
 
+                    <p className="mt-1 text-center text-gray-500 dark:text-gray-400">Create Account</p>
 
-                    <p className="mt-1 text-center text-gray-500 dark:text-gray-400">create account</p>
-
-                    <form onSubmit={(e) => handleSubmit(e)} className="mt-4">
+                    <form onSubmit={handleSubmit} className="mt-4">
                         <div className="w-full mt-4">
-                            {usernameError && (
-                                <p className="text-sm text-red-500">Invalid username, only letters, numbers, and @/./+/-/_ characters.</p>
+                            {errors.username && (
+                                <p className="text-sm text-red-500">{errors.username}</p>
                             )}
                             <input
                                 type="text"
@@ -69,30 +113,50 @@ export default function SignUp() {
                                 id="signup-username"
                             />
                         </div>
-                        {passwordError && <p className="text-sm text-red-500">invalid password</p>}
+
                         <div className="w-full mt-4">
+                             
                             <input
-                                type="password"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
-                                name="password"
-                                id="signup-password"
+                                type="email"
+                                name="email"
                                 required
-                                value={formData.password}
+                                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+                                value={formData.email}
                                 onChange={handleChange}
-                                placeholder="Password"
+                                placeholder="email"
+                                id="signup-email"
                             />
                         </div>
 
                         <div className="w-full mt-4">
+                            {errors.password && (
+                                <p className="text-sm text-red-500">{errors.password}</p>
+                            )}
                             <input
                                 type="password"
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
-                                name="passwordConfirm"
-                                id="signup-password-confirm"
+                                name="password"
                                 required
+                                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
+                                value={formData.password}
+                                onChange={handleChange}
+                                placeholder="Password"
+                                id="signup-password"
+                            />
+                        </div>
+
+                        <div className="w-full mt-4">
+                            {errors.passwordConfirm && (
+                                <p className="text-sm text-red-500">{errors.passwordConfirm}</p>
+                            )}
+                            <input
+                                type="password"
+                                name="passwordConfirm"
+                                required
+                                className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
                                 value={formData.passwordConfirm}
                                 onChange={handleChange}
                                 placeholder="Confirm Password"
+                                id="signup-password-confirm"
                             />
                         </div>
 

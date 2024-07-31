@@ -33,17 +33,17 @@ const Profile = () => {
   const currentTab = queryParams.get("tab") || "posts";
 
   useEffect(() => {
-    document.title = `Birdie Profile | @${username}`;
+    document.title = `DevSphere Profile | @${username}`;
     return function () {
-      document.title = "Birdie";
+      document.title = "DevSphere";
     };
   }, [username]);
 
   return (
     <div className="w-[599px] max-w-[99%] mt-1 mx-auto">
-      <div className="bg-gray-100 dark:bg-[#030108]">
+      <div className="bg-gray-0 dark:bg-[#030108]">
         <div className="h-[270px] w-full relative">
-          <div className="h-[200px]">
+          <div className="h-[190px]">
             <img
               src={cover_pic}
               alt="cover"

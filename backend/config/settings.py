@@ -30,7 +30,7 @@ SECRET_KEY =  os.environ.get("SECRET_KEY", "64ccd04bd8e3ba5db8c464d73bf1d0b7")
 # DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 DEBUG = True
-ALLOWED_HOSTS = ["social-nework-for-coders.onrender.com","localhost"]
+ALLOWED_HOSTS = ["social-nework-for-coders.onrender.com","localhost", "127.0.0.1"]
 
 # Application definition
 
@@ -94,7 +94,7 @@ DATABASES = {
 }
 
 # for deployment activate the default database
-DATABASES['default'] = dj_database_url.parse("postgresql://devsphere_data_storage_user:YpuLMxsYZvXerylluisLfcZiFjoaGPBi@dpg-cqevc98gph6c73b21qcg-a.oregon-postgres.render.com/devsphere_data_storage")
+# DATABASES['default'] = dj_database_url.parse("postgresql://devsphere_data_storage_user:YpuLMxsYZvXerylluisLfcZiFjoaGPBi@dpg-cqevc98gph6c73b21qcg-a.oregon-postgres.render.com/devsphere_data_storage")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
