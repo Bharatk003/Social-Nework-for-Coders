@@ -54,7 +54,7 @@ const Profile = () => {
             <img
               src={profile_pic}
               alt={username}
-              className="rounded-full w-[136px] h-[136px] object-cover absolute top-1/2 left-2 border-4 border-blue-500"
+              className="rounded-full w-[136px] h-[136px] object-cover absolute top-1/2 left-2 border-2 border-gray-50"
             ></img>
           ) : (
             <div className="rounded-full w-[136px] h-[136px] flex items-center justify-center text-white text-5xl absolute top-1/2 left-2 border-4 bg-[#bdbdbd]">

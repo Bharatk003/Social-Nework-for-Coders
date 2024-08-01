@@ -21,7 +21,7 @@ const UserProfileCard = (props) => {
             </div>
             <Link
                 to={id === userId ? "/profile" : `/user/${id}/`}
-                className="float-right m-4 border-2 hover:bg-purple-500 hover:border-purple-100 hover:text-purple-100 p-1 px-2 rounded-full text-purple-500 text-[.7rem] border-purple-500"
+                className="float-right m-4 border-2 hover:bg-blue-500 hover:border-purple-100 hover:text-blue-100 p-1 px-2 rounded-full text-blue-500 text-[.7rem] border-blue-500"
             >
                 View Profile
             </Link>

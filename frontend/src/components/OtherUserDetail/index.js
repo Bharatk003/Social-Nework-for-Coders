@@ -50,9 +50,9 @@ const Profile = () => {
 
   useEffect(() => {
     if (!username) return;
-    document.title = `Birdie Profile | @${username}`;
+    document.title = `DevSphere Profile | @${username}`;
     return function () {
-      document.title = "Birdie";
+      document.title = "DevSphere";
     };
   }, [username]);
 

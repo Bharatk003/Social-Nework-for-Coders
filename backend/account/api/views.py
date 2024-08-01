@@ -1,7 +1,7 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView
 from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import MyTokenObtainPairSerializer, UserSerializer, SignupSerializer, FollowRequestSerializer
+from .serializers import MyTokenObtainPairSerializer, UserSerializer,UserListSerializer, SignupSerializer, FollowRequestSerializer
 from account.models import User, FollowRequest
 from rest_framework.generics import RetrieveAPIView
 from django.shortcuts import get_object_or_404
@@ -181,3 +181,14 @@ class UserDetailAPIView(RetrieveAPIView):
             user = self.request.user
             data["is_following"] = user.following.filter(id=id).exists()
         return Response(data)
+
+ 
+class UserListView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        query = request.GET.get('q', '')
+        users = User.objects.filter(username__icontains=query)
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+

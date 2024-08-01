@@ -11,6 +11,7 @@ from .views import (
     FollowRequestListAPIView,
     AcceptFollowRequestAPIView,
     DeclineFollowRequestAPIView,
+    UserListView,
 )
 
 
@@ -28,5 +29,5 @@ urlpatterns = [
     path('follow-requests/', FollowRequestListAPIView.as_view(), name='follow_request_list'),
     path('follow-requests/<int:pk>/accept/', AcceptFollowRequestAPIView.as_view(), name='accept_follow_request'),
     path('follow-requests/<int:pk>/decline/', DeclineFollowRequestAPIView.as_view(), name='decline_follow_request'),
-    
+    path('userList/', UserListView.as_view(), name = 'userlist'),
 ]

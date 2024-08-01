@@ -145,3 +145,9 @@ class FollowRequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = FollowRequest
         fields = ('id', 'from_user', 'to_user', 'created_at')
+
+ 
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email']

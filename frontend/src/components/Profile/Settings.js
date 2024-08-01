@@ -114,7 +114,7 @@ const Settings = () => {
                         <button
                             type="button"
                             onClick={() => handleEditClick("profilePicUpdate")}
-                            className="text-purple-500  hover:bg-gray-200 hover:dark:bg-gray-900 py-[.2rem] px-1 text-large rounded"
+                            className="text-blue-500  hover:bg-gray-200 hover:dark:bg-gray-900 py-[.2rem] px-1 text-large rounded"
                         >
                             Edit
                         </button>
@@ -150,7 +150,7 @@ const Settings = () => {
                                         : profile_pic
                                 }
                                 alt={username}
-                                className="rounded-full w-[136px] h-[136px]  border-4 border-purple-500"
+                                className="rounded-full w-[136px] h-[136px]  border-4 border-grey-700"
                             ></img>
                         ) : (
                             <div className="rounded-full w-[136px] h-[136px] flex items-center justify-center text-white text-5xl border-4 bg-[#bdbdbd]">
@@ -180,7 +180,7 @@ const Settings = () => {
                         <button
                             type="button"
                             onClick={() => handleEditClick("coverPicUpdate")}
-                            className="text-purple-500  hover:bg-gray-200 hover:dark:bg-gray-900 py-[.2rem] px-1 text-large rounded"
+                            className="text-blue-500  hover:bg-gray-200 hover:dark:bg-gray-900 py-[.2rem] px-1 text-large rounded"
                         >
                             Edit
                         </button>
@@ -232,7 +232,7 @@ const Settings = () => {
                                 }
                                 setEditUsername((prev) => !prev);
                             }}
-                            className="text-purple-500 hover:bg-gray-200 hover:dark:bg-gray-900 py-[.2rem] px-1 text-large rounded capitalize"
+                            className="text-blue-500 hover:bg-gray-200 hover:dark:bg-gray-900 py-[.2rem] px-1 text-large rounded capitalize"
                         >
                             {editUsername ? "cancel" : "edit"}
                         </button>
@@ -265,7 +265,7 @@ const Settings = () => {
                     <div className="flex gap-3 absolute top-0 right-3">
                         <button
                             type="button"
-                            className="text-purple-500 hover:bg-gray-200 hover:dark:bg-gray-900 py-[.2rem] px-1 text-large rounded capitalize"
+                            className="text-blue-500 hover:bg-gray-200 hover:dark:bg-gray-900 py-[.2rem] px-1 text-large rounded capitalize"
                             onClick={() => {
                                 if (isDemoUser) {
                                     alert("You can't update the password of this account");
@@ -280,7 +280,7 @@ const Settings = () => {
                 </div>
                 <div className="flex items-center justify-end w-full">
                     <button
-                        className="bg-purple-400 text-purple-50 float-right px-2 h-8 rounded-full  mt-3 w-20"
+                        className="bg-blue-400 text-purple-50 float-right px-2 h-8 rounded-full  mt-3 w-20"
                         type="submit"
                     >
                         Update

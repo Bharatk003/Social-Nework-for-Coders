@@ -1,8 +1,9 @@
 import Avatar from "@mui/material/Avatar";
 import React from "react";
 import useUserContext from "../../contexts/UserContext";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useThemeContext from "../../contexts/themeContext";
+ 
 
 const Header = (props) => {
     const {
@@ -52,12 +53,16 @@ const Header = (props) => {
                             <iconify-icon icon="bi:moon-stars-fill">Dark theme</iconify-icon>
                         )}
                     </button>
-                    <Avatar src={user && profile_pic} alt={user && username}>
-                        {username && username.at(0).toUpperCase()}
-                    </Avatar>
-                    <p className="dark:text-white text-black text-lg xm:static fixed -top-36 capitalize">
+                    
+                    <Link to={"/profile"} className="flex items-center" >
+                        <Avatar src={user && profile_pic} alt={user && username}  >
+                            {username && username.at(0).toUpperCase()}
+                        </Avatar> 
+                        <p className="dark:text-white text-black text-lg xm:static fixed -top-36 capitalize ml-2">
                         {user && username}
-                    </p>
+                        </p>
+                    </Link>
+                    
                 </div>
             </div>
         </header>
