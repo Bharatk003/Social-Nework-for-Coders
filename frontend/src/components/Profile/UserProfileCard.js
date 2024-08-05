@@ -9,6 +9,7 @@ const UserProfileCard = (props) => {
         profileData: { id: userId },
     } = useUserContext();
     return (
+        <Link to={id === userId ? "/profile" : `/user/${id}/`}>
         <div className="mt-2 pl-3 p-2 bg-gray-50 w-full flex gap-2 items-center rounded-lg dark:bg-[#030108]">
             <Avatar src={profile_pic ? profile_pic : null} alt={username}>
                 {username.at(0).toUpperCase()}
@@ -26,6 +27,7 @@ const UserProfileCard = (props) => {
                 View Profile
             </Link>
         </div>
+        </Link>
     );
 };
 

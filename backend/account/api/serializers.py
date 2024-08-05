@@ -59,6 +59,7 @@ class UserSerializer(serializers.ModelSerializer):
             'username',
             'date_joined',
             'email',
+            'profession',
             'profile_pic',
             'is_private',
             'following',

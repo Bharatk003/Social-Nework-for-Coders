@@ -3,8 +3,8 @@ import useUserContext from "../../contexts/UserContext";
 import { Navigate, Link } from "react-router-dom";
 
 const validUsernamePattern = /^[\w.@+-]+$/;
+// const validPasswordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 const validPasswordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-; // At least one letter, one number, and 8 characters
 
 function validateUsername(username) {
     if (!username || username.at(-1) === " ") return false;
@@ -12,7 +12,9 @@ function validateUsername(username) {
 }
 
 function validatePassword(password) {
-    return Boolean(password.match(validPasswordPattern));
+    const result = Boolean(password.match(validPasswordPattern));
+    console.log(result)
+    return result;
 }
 
 export default function SignUp() {
@@ -21,7 +23,6 @@ export default function SignUp() {
         username: "",
         email:"",
         password: "",
-
         passwordConfirm: "",
     });
     const [errors, setErrors] = useState({

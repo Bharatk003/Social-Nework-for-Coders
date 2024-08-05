@@ -109,7 +109,7 @@ const Profile = () => {
           )}
           <button
             onClick={handleFollowUnfollow}
-            className="float-right m-4 border-2 p-1 px-2 rounded-full text-purple-500 text-sm border-purple-500"
+            className="float-right m-4 border-2 p-1 px-2 rounded-full text-blue-500 text-sm border-blue-500"
           >
             {is_following ? "unfollow" : "follow"}
           </button>

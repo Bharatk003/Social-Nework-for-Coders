@@ -29,6 +29,7 @@ class User(AbstractUser):
     
     profile_pic = models.ImageField(upload_to=profile_path, null=True)
     following = models.ManyToManyField('self')
+    profession = models.CharField(max_length=100,null=True, blank=True)
     is_private = models.BooleanField(default=False)
     cover_pic = models.ImageField(upload_to=cover_image_path, null=True, default="images/cover/coverphoto.jpg")
     followers = models.ManyToManyField('self')

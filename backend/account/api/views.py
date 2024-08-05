@@ -23,6 +23,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
     
 
 class SignupAPIView(CreateAPIView):
+    model =User
     serializer_class = SignupSerializer
     permission_classes = []
     authentication_classes = []
