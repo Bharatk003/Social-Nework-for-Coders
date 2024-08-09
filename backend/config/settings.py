@@ -30,7 +30,7 @@ SECRET_KEY =  os.environ.get("SECRET_KEY", "64ccd04bd8e3ba5db8c464d73bf1d0b7")
 # DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 DEBUG = True
-ALLOWED_HOSTS = ["social-nework-for-coders.onrender.com","localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["social-nework-for-coders.onrender.com","localhost", "127.0.0.1", "192.168.1.103"]
 
 # Application definition
 
@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "post",
     'django_cleanup.apps.CleanupConfig',
+    'channels',
+    'Chat',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +65,15 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+
+ASGI_APPLICATION = "config.asgi.application"
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 TEMPLATES = [
     {
@@ -126,11 +137,12 @@ USE_I18N = True
 
 USE_TZ = True
 
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000", 
-#     "https://devsphere-coders.netlify.app/",
-# ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://192.168.1.103:3000",
+    "http://localhost:3000", 
+    # "https://devsphere-coders.netlify.app/",
+]
+# CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
