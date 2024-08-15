@@ -54,6 +54,8 @@ class User(AbstractUser):
     def media_posts(self):
         return self.posts.exclude(image='')
     
+     
+
     
 # In accounts/models.py
 

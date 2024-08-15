@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     "post",
     'django_cleanup.apps.CleanupConfig',
     'channels',
-    'Chat',
+    'chat',
+ 
 ]
 
 MIDDLEWARE = [
@@ -68,13 +69,7 @@ ROOT_URLCONF = 'config.urls'
 
 ASGI_APPLICATION = "config.asgi.application"
 
-
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
-    },
-}
-
+  
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -92,6 +87,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+
+
+
 
 APPEND_SLASH=False
 # Database
@@ -174,6 +172,15 @@ MEDIA_URL = '/media/'
 
 MAX_IMAGE_SIZE = 100 * 1024  # 100kb
 
+
+
+ASGI_APPLICATION = "config.routing.application" #routing.py will handle the ASGI
+# Channels layers for WebSocket
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
+}
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
