@@ -7,20 +7,24 @@ from rest_framework.response import Response
 from .models import ChatMessage, User
 from .serializers import ChatMessageSerializer, UserSerializer
 
-# views.py
+from rest_framework.permissions import IsAuthenticated
+ 
+ 
+
 class ChatMessageViewSet(viewsets.ModelViewSet):
     serializer_class = ChatMessageSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    # Set the queryset attribute
-    queryset = ChatMessage.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
         return ChatMessage.objects.filter(sender=user) | ChatMessage.objects.filter(receiver=user)
 
     def perform_create(self, serializer):
-        serializer.save(sender=self.request.user)
+        # Ensure that the receiver is passed and saved correctly
+        receiver_id = self.request.data.get('receiver')
+        receiver = User.objects.get(id=receiver_id)
+        serializer.save(sender=self.request.user, receiver=receiver)
+
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
