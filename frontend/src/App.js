@@ -1,4 +1,5 @@
 import React from "react";
+import './App.css';
 import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import Base from "./components/global/Base";
 import Home from "./components/Home";
@@ -14,15 +15,17 @@ import PostDetail from "./components/global/PostDetail";
 import OtherUserDetail from "./components/OtherUserDetail";
 import SignUp from "./components/Auth/Signup";
 import SearchDev from "./components/global/SearchDev";
-import ChatRoom from "./components/Chat/ChatRoom";
+ 
 
 const App = createBrowserRouter(
     createRoutesFromElements(
         <>
             <Route path="/" element={<Base />} errorElement={<ErrorPage />}>
+                {/* Protected routes, accessible only after login */}
                 <Route path="/" element={<LoginRequiredRoute />}>
                     <Route path="" element={<Home />} />
-                    <Route path="userslist/" element={<SearchDev/>}/>
+                    <Route path="chatRoom/" element={<Base />} />
+                    <Route path="userslist/" element={<SearchDev />} />
                     <Route path="likes/" element={<Liked />} />
                     <Route path="saved/" element={<Saved />} />
                     <Route path="explore/" element={<Explore />} />
@@ -32,6 +35,8 @@ const App = createBrowserRouter(
                     <Route path="user/:userId" element={<OtherUserDetail />} />
                 </Route>
             </Route>
+            
+            {/* Authentication routes */}
             <Route path="signin/" element={<SignIn />} />
             <Route path="signup/" element={<SignUp />} />
         </>

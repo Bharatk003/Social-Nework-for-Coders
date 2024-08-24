@@ -1,12 +1,9 @@
-# urls.py (inside the chat app)
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import ChatMessageViewSet, UserViewSet
+from django.urls import path
+from . import views
 
-router = DefaultRouter()
-router.register(r'chat', ChatMessageViewSet, basename='chatmessage')  # Specify the basename
-router.register(r'users', UserViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', views.index, name='index'),
+    path('<str:room_name>/', views.room, name='room'),
+    
 ]

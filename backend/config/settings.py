@@ -30,11 +30,12 @@ SECRET_KEY =  os.environ.get("SECRET_KEY", "64ccd04bd8e3ba5db8c464d73bf1d0b7")
 # DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 DEBUG = True
-ALLOWED_HOSTS = ["social-nework-for-coders.onrender.com","localhost", "127.0.0.1", "192.168.1.103"]
+ALLOWED_HOSTS = ["social-nework-for-coders.onrender.com","localhost", "127.0.0.1", "192.168.1.103",]
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,30 +47,43 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     "corsheaders",
+ 
     "post",
     'django_cleanup.apps.CleanupConfig',
-    'channels',
+    
     'chat',
+    'channels',
  
+    
 ]
 
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",
+    
     "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
 
-ASGI_APPLICATION = "config.asgi.application"
 
-  
+# ASGI_APPLICATION = "config.asgi.application" #routing.py will handle the ASGI
+# Channels layers for WebSocket
+# settings.py
+ 
+
+# settings.py
+
+# REDIS_URL = "redis://localhost:6379"  # Replace with your Redis URL
+
+ 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -86,7 +100,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+# WSGI_APPLICATION = 'config.wsgi.application'
 
 
 
@@ -138,9 +152,10 @@ USE_TZ = True
 CORS_ALLOWED_ORIGINS = [
     "http://192.168.1.103:3000",
     "http://localhost:3000", 
+    "http://127.0.0.1:3000",
     # "https://devsphere-coders.netlify.app/",
 ]
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -172,15 +187,15 @@ MEDIA_URL = '/media/'
 
 MAX_IMAGE_SIZE = 100 * 1024  # 100kb
 
-
-
-ASGI_APPLICATION = "config.routing.application" #routing.py will handle the ASGI
-# Channels layers for WebSocket
+ASGI_APPLICATION = "config.routing.application"
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
-    },
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
 }
+
+ASGI_APPLICATION = 'config.asgi.application'
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
@@ -213,3 +228,5 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+ 

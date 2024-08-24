@@ -26,7 +26,7 @@ const CommentForm = ({ handleSubmit }) => {
                 />
                 <button
                     type="submit"
-                    className="ml-auto bg-purple-400 text-purple-100 px-6 py-1 rounded-full"
+                    className="ml-auto bg-blue-400 text-purple-100 px-6 py-1 rounded-full"
                 >
                     Post
                 </button>
