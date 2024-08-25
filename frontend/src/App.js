@@ -15,7 +15,7 @@ import PostDetail from "./components/global/PostDetail";
 import OtherUserDetail from "./components/OtherUserDetail";
 import SignUp from "./components/Auth/Signup";
 import SearchDev from "./components/global/SearchDev";
- 
+import ChatBase from "./components/Chat/ChatBase";
 
 const App = createBrowserRouter(
     createRoutesFromElements(
@@ -24,7 +24,7 @@ const App = createBrowserRouter(
                 {/* Protected routes, accessible only after login */}
                 <Route path="/" element={<LoginRequiredRoute />}>
                     <Route path="" element={<Home />} />
-                    <Route path="chatRoom/" element={<Base />} />
+                    <Route path="chatRoom/" element={<ChatBase />} />
                     <Route path="userslist/" element={<SearchDev />} />
                     <Route path="likes/" element={<Liked />} />
                     <Route path="saved/" element={<Saved />} />

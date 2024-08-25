@@ -41,7 +41,7 @@ export default function SignIn() {
 
              
 
-                <p class="mt-1 text-center text-gray-900 dark:text-gray-100">Login or create account</p>
+                <p className="mt-1 text-center text-gray-900 dark:text-gray-100">Login or create account</p>
                 <form onSubmit={(e) => handleSubmit(e)} className="w-full flex flex-col gap-3">
                     <div className="w-full mt-4">
                      
